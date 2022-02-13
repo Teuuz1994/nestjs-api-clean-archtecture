@@ -16,11 +16,16 @@ import {
 import {
   ListUsersController,
   CreateUserController,
+  UpdateUserController,
 } from '../presentation/controllers';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UserRepository])],
-  controllers: [ListUsersController, CreateUserController],
+  controllers: [
+    ListUsersController,
+    CreateUserController,
+    UpdateUserController,
+  ],
   providers: [
     {
       provide: HashProvider,
