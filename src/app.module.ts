@@ -8,9 +8,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DB_URL_CONNECTION,
+      autoLoadEntities: true,
+      synchronize: true,
     }),
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}
