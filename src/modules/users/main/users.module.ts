@@ -6,8 +6,12 @@ import { UserRepository } from '../infra/typeorm/repository/user-repository';
 import { HashProvider } from '../data/protocols/hash-provider';
 import { HashAdapter } from '../infra/hash-provider/cryptography';
 
-import { LIstAllUsers, CreationUser } from '../domain';
-import { CreateUserUseCase, LIstAllUsersUserCase } from '../data/use-cases';
+import { LIstAllUsers, CreationUser, UpdateUser } from '../domain';
+import {
+  CreateUserUseCase,
+  LIstAllUsersUserCase,
+  UpdateUserUseCase,
+} from '../data/use-cases';
 
 import {
   ListUsersController,
@@ -29,6 +33,10 @@ import {
     {
       provide: CreationUser,
       useClass: CreateUserUseCase,
+    },
+    {
+      provide: UpdateUser,
+      useClass: UpdateUserUseCase,
     },
   ],
 })
