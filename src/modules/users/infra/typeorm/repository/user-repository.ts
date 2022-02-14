@@ -43,10 +43,10 @@ export class UserRepository
     });
   }
 
-  async createUser(user: CreateUserDto): Promise<User> {
+  async createUser(idGenerator: string, user: CreateUserDto): Promise<User> {
     const baseUser = this.create({
       ...user,
-      id: generateUuidFactory().generate(),
+      id: idGenerator,
     });
     const createdUser = await this.save(baseUser);
     return createdUser;

@@ -1,11 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { DbDeleteUser } from '../../domain';
 import { UserRepository } from '../../infra/typeorm/repository/user-repository';
 import { DeleteUserRepository, FindUserByIdRepository } from '../protocols';
 
 @Injectable()
-export class DeleteUserUseCase {
+export class DeleteUserUseCase implements DbDeleteUser {
   constructor(
     @InjectRepository(UserRepository)
     private readonly findUserByIdRepository: FindUserByIdRepository,

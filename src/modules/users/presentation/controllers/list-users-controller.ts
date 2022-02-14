@@ -1,10 +1,20 @@
-import { Controller, Get, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Inject,
+} from '@nestjs/common';
 
-import { LIstAllUsers } from '../../domain';
+import { DbListAllUsers } from '../../domain';
+import { TOKEN_INJECTION } from '../../infra/tokens/token-injection';
 
 @Controller('users')
 export class ListUsersController {
-  constructor(private readonly listUsersUseCase: LIstAllUsers) {}
+  constructor(
+    @Inject(TOKEN_INJECTION.DB_LIST_ALL_USERS)
+    private readonly listUsersUseCase: DbListAllUsers,
+  ) {}
 
   @Get()
   async handle() {

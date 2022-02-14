@@ -1,12 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { DbUpdateUser } from '../../domain';
 import { User } from '../../domain/entities/user';
 import { UpdateUserDto } from '../../dto/update-user.dto';
 import { UserRepository } from '../../infra/typeorm/repository/user-repository';
 
 @Injectable()
-export class UpdateUserUseCase {
+export class UpdateUserUseCase implements DbUpdateUser {
   constructor(
     @InjectRepository(UserRepository)
     private readonly ormRepository: UserRepository,

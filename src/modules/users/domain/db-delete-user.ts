@@ -1,3 +1,3 @@
-export abstract class DbDeleteUser {
-  abstract execute(id: string): Promise<void>;
+export interface DbDeleteUser {
+  execute(id: string): Promise<void>;
 }

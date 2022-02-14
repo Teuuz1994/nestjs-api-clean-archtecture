@@ -1,3 +1,3 @@
-export abstract class HashProvider {
-  abstract cypher(content: string): Promise<string>;
+export interface HashProvider {
+  cypher(content: string): Promise<string>;
 }
