@@ -6,17 +6,24 @@ import { UserRepository } from '../infra/typeorm/repository/user-repository';
 import { HashProvider, CompareHashProvider } from '../data/protocols';
 import { HashAdapter, CypherCompare } from '../infra/hash-provider';
 
-import { LIstAllUsers, CreationUser, UpdateUser } from '../domain';
+import {
+  LIstAllUsers,
+  CreationUser,
+  UpdateUser,
+  DbDeleteUser,
+} from '../domain';
 import {
   CreateUserUseCase,
   LIstAllUsersUserCase,
   UpdateUserUseCase,
+  DeleteUserUseCase,
 } from '../data/use-cases';
 
 import {
   ListUsersController,
   CreateUserController,
   UpdateUserController,
+  DeleteUserController,
 } from '../presentation/controllers';
 
 @Module({
@@ -25,6 +32,7 @@ import {
     ListUsersController,
     CreateUserController,
     UpdateUserController,
+    DeleteUserController,
   ],
   providers: [
     {
@@ -46,6 +54,10 @@ import {
     {
       provide: CompareHashProvider,
       useClass: CypherCompare,
+    },
+    {
+      provide: DbDeleteUser,
+      useClass: DeleteUserUseCase,
     },
   ],
 })

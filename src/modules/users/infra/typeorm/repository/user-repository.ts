@@ -8,6 +8,8 @@ import {
   FindAllUsersRepository,
   CreateUserRepository,
   FindUserByEmailRepository,
+  DeleteUserRepository,
+  FindUserByIdRepository,
 } from '@/modules/users/data/protocols';
 
 @EntityRepository(User)
@@ -16,7 +18,10 @@ export class UserRepository
   implements
     FindAllUsersRepository,
     CreateUserRepository,
-    FindUserByEmailRepository
+    FindUserByEmailRepository,
+    DeleteUserRepository,
+    DeleteUserRepository,
+    FindUserByIdRepository
 {
   async findAll(): Promise<User[]> {
     return this.find();
