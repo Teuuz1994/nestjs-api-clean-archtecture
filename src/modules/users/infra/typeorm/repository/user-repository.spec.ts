@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 
 import { UserRepository } from './user-repository';
-import { userMock, userRepositoryMock } from '../tests/mocks';
+import { userMock, userRepositoryMock } from '../test/mocks';
 import {
   CreateUserRepository,
   DeleteUserRepository,
