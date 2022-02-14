@@ -4,19 +4,28 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../../domain/entities/user';
 import { CreateUserDto } from '../../dto/create-user.dto';
 import { UserRepository } from '../../infra/typeorm/repository/user-repository';
-import { HashProvider } from '../protocols/hash-provider';
+import {
+  HashProvider,
+  FindUserByEmailRepository,
+  CreateUserRepository,
+} from '../protocols';
 
 @Injectable()
 export class CreateUserUseCase {
   constructor(
     @InjectRepository(UserRepository)
-    private readonly ormRepository: UserRepository,
+    private readonly findUserByEmailRepository: FindUserByEmailRepository,
+
+    @InjectRepository(UserRepository)
+    private readonly createUserRepository: CreateUserRepository,
 
     private readonly hashProvider: HashProvider,
   ) {}
 
   async execute(user: CreateUserDto): Promise<User> {
-    const userAlreadyExists = await this.ormRepository.findByEmail(user.email);
+    const userAlreadyExists = await this.findUserByEmailRepository.findByEmail(
+      user.email,
+    );
 
     if (userAlreadyExists) {
       throw new HttpException(
@@ -33,7 +42,7 @@ export class CreateUserUseCase {
       password: await this.hashProvider.cypher(user.password),
     };
 
-    const createdUser = await this.ormRepository.createUser(baseUser);
+    const createdUser = await this.createUserRepository.createUser(baseUser);
     return createdUser;
   }
 }

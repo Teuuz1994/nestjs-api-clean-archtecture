@@ -4,10 +4,21 @@ import { User } from '@/modules/users/domain/entities/user';
 import { CreateUserDto } from '@/modules/users/dto/create-user.dto';
 import { UpdateUserDto } from '@/modules/users/dto/update-user.dto';
 import { generateUuidFactory } from '../../../main/factories/generate-id-factory';
+import {
+  FindAllUsersRepository,
+  CreateUserRepository,
+  FindUserByEmailRepository,
+} from '@/modules/users/data/protocols';
 
 @EntityRepository(User)
-export class UserRepository extends Repository<User> {
-  async findALl(): Promise<User[]> {
+export class UserRepository
+  extends Repository<User>
+  implements
+    FindAllUsersRepository,
+    CreateUserRepository,
+    FindUserByEmailRepository
+{
+  async findAll(): Promise<User[]> {
     return this.find();
   }
 
