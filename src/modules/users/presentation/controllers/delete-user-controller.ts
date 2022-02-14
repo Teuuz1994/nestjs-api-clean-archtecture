@@ -16,13 +16,10 @@ export class DeleteUserController {
   async handle(@Param('id') id: string) {
     try {
       await this.deleteUserUseCase.execute(id);
-      throw new HttpException(
-        {
-          message: 'User successfully deleted!',
-          code: HttpStatus.OK,
-        },
-        HttpStatus.OK,
-      );
+      return {
+        message: 'User deleted successfully',
+        code: 200,
+      };
     } catch {
       throw new HttpException(
         {
