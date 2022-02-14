@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UserRepository } from '../infra/typeorm/repository/user-repository';
 
-import { HashProvider } from '../data/protocols/hash-provider';
-import { HashAdapter } from '../infra/hash-provider/cryptography';
+import { HashProvider, CompareHashProvider } from '../data/protocols';
+import { HashAdapter, CypherCompare } from '../infra/hash-provider';
 
 import { LIstAllUsers, CreationUser, UpdateUser } from '../domain';
 import {
@@ -42,6 +42,10 @@ import {
     {
       provide: UpdateUser,
       useClass: UpdateUserUseCase,
+    },
+    {
+      provide: CompareHashProvider,
+      useClass: CypherCompare,
     },
   ],
 })
