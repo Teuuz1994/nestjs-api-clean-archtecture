@@ -59,6 +59,15 @@ describe('UserRepository', () => {
     expect(findedUser).toHaveProperty('id');
   });
 
+  it('Should be able to find user by email', async () => {
+    const user = userMock();
+    userRepositoryMock.findByEmail.mockReturnValue(user);
+    const findedUser = await findUserByEmailRepository.findByEmail(user.email);
+    const spy = jest.spyOn(findUserByEmailRepository, 'findByEmail');
+    expect(spy).toHaveBeenCalled();
+    expect(findedUser).toHaveProperty('id');
+  });
+
   it('Should be able to create user', async () => {
     const user = userMock();
     userRepositoryMock.createUser.mockReturnValue(user);
