@@ -8,10 +8,12 @@ import {
   FindAllUsersRepository,
   FindUserByEmailRepository,
   FindUserByIdRepository,
+  UpdateUserRepository,
 } from '@/modules/users/data/protocols';
 
 describe('UserRepository', () => {
   let createUserRepository: CreateUserRepository;
+  let updateUserRepository: UpdateUserRepository;
   let deleteUserRepository: DeleteUserRepository;
   let findAllUsersRepository: FindAllUsersRepository;
   let findUserByEmailRepository: FindUserByEmailRepository;
@@ -32,6 +34,7 @@ describe('UserRepository', () => {
     findAllUsersRepository = module.get(UserRepository);
     findUserByEmailRepository = module.get(UserRepository);
     findUserByIdRepository = module.get(UserRepository);
+    updateUserRepository = module.get(UserRepository);
   });
 
   beforeEach(() => {
@@ -54,5 +57,12 @@ describe('UserRepository', () => {
     const spy = jest.spyOn(createUserRepository, 'createUser');
     expect(spy).toHaveBeenCalled();
     expect(createdUser).toHaveProperty('id');
+  });
+
+  it('Should be able to delete user by id', async () => {
+    const user = userMock();
+    await deleteUserRepository.deleteUserById(user.id);
+    const spy = jest.spyOn(deleteUserRepository, 'deleteUserById');
+    expect(spy).toHaveBeenCalled();
   });
 });
