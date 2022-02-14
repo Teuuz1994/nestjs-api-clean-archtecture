@@ -3,7 +3,6 @@ import { EntityRepository, Repository } from 'typeorm';
 import { User } from '@/modules/users/domain/entities/user';
 import { CreateUserDto } from '@/modules/users/dto/create-user.dto';
 import { UpdateUserDto } from '@/modules/users/dto/update-user.dto';
-import { generateUuidFactory } from '../../../main/factories/generate-id-factory';
 import {
   FindAllUsersRepository,
   CreateUserRepository,
