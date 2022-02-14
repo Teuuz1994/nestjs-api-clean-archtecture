@@ -5,15 +5,19 @@ import { DbUpdateUser } from '../../domain';
 import { User } from '../../domain/entities/user';
 import { UpdateUserDto } from '../../dto/update-user.dto';
 import { UserRepository } from '../../infra/typeorm/repository/user-repository';
+import { FindUserByIdRepository, UpdateUserRepository } from '../protocols';
 
 @Injectable()
 export class UpdateUserUseCase implements DbUpdateUser {
   constructor(
     @InjectRepository(UserRepository)
-    private readonly ormRepository: UserRepository,
+    private readonly findUserByIdRepository: FindUserByIdRepository,
+
+    @InjectRepository(UserRepository)
+    private readonly udateUserRepository: UpdateUserRepository,
   ) {}
   async execute(id: string, user: UpdateUserDto): Promise<User> {
-    const userAlreadyExists = await this.ormRepository.findById(id);
+    const userAlreadyExists = await this.findUserByIdRepository.findById(id);
 
     if (!userAlreadyExists) {
       throw new HttpException(
@@ -25,7 +29,7 @@ export class UpdateUserUseCase implements DbUpdateUser {
       );
     }
 
-    const updatedUser = await this.ormRepository.updateUser(
+    const updatedUser = await this.udateUserRepository.updateUser(
       userAlreadyExists.id,
       user,
     );
