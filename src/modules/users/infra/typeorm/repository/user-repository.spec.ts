@@ -52,7 +52,7 @@ describe('UserRepository', () => {
 
   it('Should be able to find user by id', async () => {
     const user = userMock();
-    userRepositoryMock.createUser.mockReturnValue(user);
+    userRepositoryMock.findById.mockReturnValue(user);
     const findedUser = await findUserByIdRepository.findById(user.id);
     const spy = jest.spyOn(findUserByIdRepository, 'findById');
     expect(spy).toHaveBeenCalled();
