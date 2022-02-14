@@ -83,4 +83,17 @@ describe('UserRepository', () => {
     const spy = jest.spyOn(deleteUserRepository, 'deleteUserById');
     expect(spy).toHaveBeenCalled();
   });
+
+  it('Should be able to update user', async () => {
+    const user = userMock();
+    const baseUpdatedUser = userMock();
+    userRepositoryMock.updateUser.mockReturnValue(baseUpdatedUser);
+    const updatedUser = await updateUserRepository.updateUser(
+      user.id,
+      baseUpdatedUser,
+    );
+    const spy = jest.spyOn(updateUserRepository, 'updateUser');
+    expect(spy).toHaveBeenCalled();
+    expect(updatedUser).toEqual(baseUpdatedUser);
+  });
 });
