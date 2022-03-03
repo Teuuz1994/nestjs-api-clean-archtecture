@@ -71,7 +71,7 @@ describe('UserRepository', () => {
   it('Should be able to create user', async () => {
     const user = userMock();
     userRepositoryMock.createUser.mockReturnValue(user);
-    const createdUser = await createUserRepository.createUser(user.id, user);
+    const createdUser = await createUserRepository.createUser(user);
     const spy = jest.spyOn(createUserRepository, 'createUser');
     expect(spy).toHaveBeenCalled();
     expect(createdUser).toHaveProperty('id');
