@@ -4,7 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  BeforeInsert,
 } from 'typeorm';
+
+import { GenerateUuidAdapter } from '../../generator/id-generator';
 
 @Entity('users')
 export class User {
@@ -31,4 +34,9 @@ export class User {
     name: 'updated_at',
   })
   updatedAt: Date;
+
+  @BeforeInsert()
+  incrementUuid() {
+    this.id = GenerateUuidAdapter.generate();
+  }
 }

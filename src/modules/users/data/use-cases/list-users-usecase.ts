@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { DbListAllUsers } from '../../domain';
-import { User } from '../../domain/entities/user';
+import { User } from '../../infra/typeorm/entities/user';
 import { UserRepository } from '../../infra/typeorm/repository/user-repository';
 import { FindAllUsersRepository } from '../protocols';
 

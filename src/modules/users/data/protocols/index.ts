@@ -5,5 +5,4 @@ export * from './find-user-by-email-repository';
 export * from './compare-hash-provider';
 export * from './delete-user-repository';
 export * from './find-user-by-id-repository';
-export * from './id-generator';
 export * from './update-user-repository';

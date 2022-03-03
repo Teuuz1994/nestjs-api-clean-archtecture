@@ -4,7 +4,6 @@ import {
   LIstAllUsersUserCase,
   UpdateUserUseCase,
 } from '../../data/use-cases';
-import { GenerateUuidAdapter } from '../../infra/generator/id-generator';
 import { CypherCompare, HashAdapter } from '../../infra/hash-provider';
 import { TOKEN_INJECTION } from '../../infra/tokens/token-injection';
 
@@ -33,10 +32,6 @@ export const composeProvidersFactory = () => {
     {
       provide: TOKEN_INJECTION.DB_DELETE_USER,
       useClass: DeleteUserUseCase,
-    },
-    {
-      provide: TOKEN_INJECTION.ID_GENERATOR,
-      useClass: GenerateUuidAdapter,
     },
   ];
 };

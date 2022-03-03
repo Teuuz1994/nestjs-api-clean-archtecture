@@ -1,6 +1,6 @@
-import { User } from '../../domain/entities/user';
+import { User } from '../../infra/typeorm/entities/user';
 import { CreateUserDto } from '../../dto/create-user.dto';
 
 export interface CreateUserRepository {
-  createUser(idGenerator: string, user: CreateUserDto): Promise<User>;
+  createUser(user: CreateUserDto): Promise<User>;
 }

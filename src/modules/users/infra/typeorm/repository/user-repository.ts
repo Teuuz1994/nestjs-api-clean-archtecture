@@ -1,6 +1,6 @@
 import { EntityRepository, Repository } from 'typeorm';
 
-import { User } from '@/modules/users/domain/entities/user';
+import { User } from '@/modules/users/infra/typeorm/entities/user';
 import { CreateUserDto } from '@/modules/users/dto/create-user.dto';
 import { UpdateUserDto } from '@/modules/users/dto/update-user.dto';
 import {
@@ -42,11 +42,8 @@ export class UserRepository
     });
   }
 
-  async createUser(idGenerator: string, user: CreateUserDto): Promise<User> {
-    const baseUser = this.create({
-      ...user,
-      id: idGenerator,
-    });
+  async createUser(user: CreateUserDto): Promise<User> {
+    const baseUser = this.create(user);
     const createdUser = await this.save(baseUser);
     return createdUser;
   }

@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { DbCreateUser } from '../../domain';
-import { User } from '../../domain/entities/user';
+import { User } from '../../infra/typeorm/entities/user';
 import { CreateUserDto } from '../../dto/create-user.dto';
 import { TOKEN_INJECTION } from '../../infra/tokens/token-injection';
 import { UserRepository } from '../../infra/typeorm/repository/user-repository';
@@ -10,7 +10,6 @@ import {
   HashProvider,
   FindUserByEmailRepository,
   CreateUserRepository,
-  IdGenerator,
 } from '../protocols';
 
 @Injectable()
@@ -24,9 +23,6 @@ export class CreateUserUseCase implements DbCreateUser {
 
     @Inject(TOKEN_INJECTION.HASH_PROVIDER)
     private readonly hashProvider: HashProvider,
-
-    @Inject(TOKEN_INJECTION.ID_GENERATOR)
-    private readonly idGenerator: IdGenerator,
   ) {}
 
   async execute(user: CreateUserDto): Promise<User> {
@@ -49,10 +45,7 @@ export class CreateUserUseCase implements DbCreateUser {
       password: await this.hashProvider.cypher(user.password),
     };
 
-    const createdUser = await this.createUserRepository.createUser(
-      this.idGenerator.generate(),
-      baseUser,
-    );
+    const createdUser = await this.createUserRepository.createUser(baseUser);
     return createdUser;
   }
 }
