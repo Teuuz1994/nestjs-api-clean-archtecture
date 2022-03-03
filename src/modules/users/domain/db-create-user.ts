@@ -1,6 +1,6 @@
 import { CreateUserDto } from '../dto/create-user.dto';
-import { User } from '../infra/typeorm/entities/user';
+import { UserModel } from './models/UserModel';
 
 export interface DbCreateUser {
-  execute(user: CreateUserDto): Promise<User>;
+  execute(user: CreateUserDto): Promise<UserModel>;
 }

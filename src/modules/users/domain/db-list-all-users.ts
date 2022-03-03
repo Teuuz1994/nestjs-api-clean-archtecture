@@ -1,5 +1,5 @@
-import { User } from '../infra/typeorm/entities/user';
+import { UserModel } from './models/UserModel';
 
 export interface DbListAllUsers {
-  execute(): Promise<User[]>;
+  execute(): Promise<UserModel[]>;
 }

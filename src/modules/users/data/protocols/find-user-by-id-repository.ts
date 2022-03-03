@@ -1,5 +1,5 @@
-import { User } from '../../infra/typeorm/entities/user';
+import { UserModel } from '../../domain/models/UserModel';
 
 export interface FindUserByIdRepository {
-  findById(id: string): Promise<User>;
+  findById(id: string): Promise<UserModel>;
 }

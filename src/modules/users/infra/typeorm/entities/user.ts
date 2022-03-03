@@ -7,10 +7,11 @@ import {
   BeforeInsert,
 } from 'typeorm';
 
+import { UserModel } from '@/modules/users/domain/models/UserModel';
 import { GenerateUuidAdapter } from '../../generator/id-generator';
 
 @Entity('users')
-export class User {
+export class User implements UserModel {
   @PrimaryColumn('uuid')
   id: string;
 

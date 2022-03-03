@@ -1,6 +1,6 @@
 import { UpdateUserDto } from '../dto/update-user.dto';
-import { User } from '../infra/typeorm/entities/user';
+import { UserModel } from './models/UserModel';
 
 export interface DbUpdateUser {
-  execute(id: string, user: UpdateUserDto): Promise<User>;
+  execute(id: string, user: UpdateUserDto): Promise<UserModel>;
 }

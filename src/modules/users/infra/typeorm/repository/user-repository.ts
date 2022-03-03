@@ -10,6 +10,7 @@ import {
   DeleteUserRepository,
   FindUserByIdRepository,
 } from '@/modules/users/data/protocols';
+import { UserModel } from '@/modules/users/domain/models/UserModel';
 
 @EntityRepository(User)
 export class UserRepository
@@ -26,7 +27,7 @@ export class UserRepository
     return this.find();
   }
 
-  async findById(id: string): Promise<User> {
+  async findById(id: string): Promise<UserModel> {
     return this.findOne({
       where: {
         id,
@@ -34,7 +35,7 @@ export class UserRepository
     });
   }
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<UserModel> {
     return this.findOne({
       where: {
         email,
@@ -42,20 +43,20 @@ export class UserRepository
     });
   }
 
-  async createUser(user: CreateUserDto): Promise<User> {
+  async createUser(user: CreateUserDto): Promise<UserModel> {
     const baseUser = this.create(user);
     const createdUser = await this.save(baseUser);
     return createdUser;
   }
 
-  async updateUser(id: string, user: UpdateUserDto): Promise<User> {
+  async updateUser(id: string, user: UpdateUserDto): Promise<UserModel> {
     const findedUser = await this.findById(id);
     const updatedUser = await this.save(Object.assign(findedUser, user));
     return updatedUser;
   }
 
   async deleteUserById(id: string): Promise<void> {
-    const findedUser = await this.findById(id);
+    const findedUser = await this.findOne(id);
     await this.remove(findedUser);
   }
 }

@@ -1,5 +1,5 @@
-import { User } from '../../infra/typeorm/entities/user';
+import { UserModel } from '../../domain/models/UserModel';
 
 export interface FindUserByEmailRepository {
-  findByEmail(email: string): Promise<User>;
+  findByEmail(email: string): Promise<UserModel>;
 }

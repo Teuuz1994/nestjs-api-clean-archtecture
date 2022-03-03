@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { DbListAllUsers } from '../../domain';
-import { User } from '../../infra/typeorm/entities/user';
+import { UserModel } from '../../domain/models/UserModel';
 import { UserRepository } from '../../infra/typeorm/repository/user-repository';
 import { FindAllUsersRepository } from '../protocols';
 
@@ -13,7 +13,7 @@ export class LIstAllUsersUserCase implements DbListAllUsers {
     private readonly findAllUsersRepository: FindAllUsersRepository,
   ) {}
 
-  async execute(): Promise<User[]> {
+  async execute(): Promise<UserModel[]> {
     return this.findAllUsersRepository.findAll();
   }
 }

@@ -7,7 +7,6 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { DbCreateUser } from '../../domain';
-import { User } from '../../infra/typeorm/entities/user';
 import { CreateUserDto } from '../../dto/create-user.dto';
 import { TOKEN_INJECTION } from '../../infra/tokens/token-injection';
 import { UserRepository } from '../../infra/typeorm/repository/user-repository';
@@ -16,6 +15,7 @@ import {
   FindUserByEmailRepository,
   CreateUserRepository,
 } from '../protocols';
+import { UserModel } from '../../domain/models/UserModel';
 
 @Injectable()
 export class CreateUserUseCase implements DbCreateUser {
@@ -30,7 +30,7 @@ export class CreateUserUseCase implements DbCreateUser {
     private readonly hashProvider: HashProvider,
   ) {}
 
-  async execute(user: CreateUserDto): Promise<User> {
+  async execute(user: CreateUserDto): Promise<UserModel> {
     const userAlreadyExists = await this.findUserByEmailRepository.findByEmail(
       user.email,
     );
