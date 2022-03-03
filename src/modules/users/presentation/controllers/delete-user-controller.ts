@@ -1,10 +1,10 @@
 import {
   Controller,
-  HttpException,
   HttpStatus,
   Delete,
   Param,
   Inject,
+  InternalServerErrorException,
 } from '@nestjs/common';
 
 import { DbDeleteUser } from '../../domain';
@@ -26,13 +26,10 @@ export class DeleteUserController {
         code: 200,
       };
     } catch {
-      throw new HttpException(
-        {
-          message: 'Internal Server error',
-          code: HttpStatus.INTERNAL_SERVER_ERROR,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException({
+        message: 'Internal Server error',
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
+      });
     }
   }
 }

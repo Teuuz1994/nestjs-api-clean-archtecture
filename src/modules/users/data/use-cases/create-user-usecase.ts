@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable, Inject } from '@nestjs/common';
+import {
+  HttpStatus,
+  Injectable,
+  Inject,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { DbCreateUser } from '../../domain';
@@ -31,13 +36,10 @@ export class CreateUserUseCase implements DbCreateUser {
     );
 
     if (userAlreadyExists) {
-      throw new HttpException(
-        {
-          message: 'Something went wrong, try again later',
-          code: HttpStatus.BAD_REQUEST,
-        },
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new BadRequestException({
+        message: 'Something went wrong, try again later',
+        code: HttpStatus.BAD_REQUEST,
+      });
     }
 
     const baseUser = {

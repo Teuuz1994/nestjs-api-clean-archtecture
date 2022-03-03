@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { DbUpdateUser } from '../../domain';
@@ -20,13 +20,10 @@ export class UpdateUserUseCase implements DbUpdateUser {
     const userAlreadyExists = await this.findUserByIdRepository.findById(id);
 
     if (!userAlreadyExists) {
-      throw new HttpException(
-        {
-          message: 'Email or password is incorrect',
-          code: HttpStatus.BAD_REQUEST,
-        },
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new BadRequestException({
+        message: 'Email or password is incorrect',
+        code: HttpStatus.BAD_REQUEST,
+      });
     }
 
     const updatedUser = await this.udateUserRepository.updateUser(

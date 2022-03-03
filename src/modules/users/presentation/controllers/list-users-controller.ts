@@ -1,9 +1,9 @@
 import {
   Controller,
   Get,
-  HttpException,
   HttpStatus,
   Inject,
+  InternalServerErrorException,
 } from '@nestjs/common';
 
 import { DbListAllUsers } from '../../domain';
@@ -22,13 +22,10 @@ export class ListUsersController {
       const users = await this.listUsersUseCase.execute();
       return users;
     } catch {
-      throw new HttpException(
-        {
-          message: 'Internal Server error',
-          code: HttpStatus.INTERNAL_SERVER_ERROR,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException({
+        message: 'Internal Server error',
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
+      });
     }
   }
 }

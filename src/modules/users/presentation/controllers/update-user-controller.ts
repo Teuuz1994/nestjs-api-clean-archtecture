@@ -1,11 +1,11 @@
 import {
   Controller,
-  HttpException,
   HttpStatus,
   Put,
   Body,
   Param,
   Inject,
+  InternalServerErrorException,
 } from '@nestjs/common';
 
 import { DbUpdateUser } from '../../domain';
@@ -25,13 +25,10 @@ export class UpdateUserController {
       const updatedUser = await this.updateUserUseCase.execute(id, user);
       return updatedUser;
     } catch {
-      throw new HttpException(
-        {
-          message: 'Internal Server error',
-          code: HttpStatus.INTERNAL_SERVER_ERROR,
-        },
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      throw new InternalServerErrorException({
+        message: 'Internal Server error',
+        code: HttpStatus.INTERNAL_SERVER_ERROR,
+      });
     }
   }
 }
