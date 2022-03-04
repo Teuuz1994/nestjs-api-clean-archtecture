@@ -11,5 +11,6 @@ import {
   imports: [TypeOrmModule.forFeature([UserRepository])],
   controllers: composeControllersFactory(),
   providers: composeProvidersFactory(),
+  exports: [TypeOrmModule],
 })
 export class UsersModule {}

@@ -1,6 +1,6 @@
 import { compare } from 'bcryptjs';
 
-import { CompareHashProvider } from '@/modules/users/data/protocols';
+import { CompareHashProvider } from '../../data/protocols';
 
 export class CypherCompare implements CompareHashProvider {
   async compareCypher(
