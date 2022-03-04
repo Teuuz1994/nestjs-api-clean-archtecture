@@ -2,7 +2,6 @@ import { Provider } from '@nestjs/common';
 
 import { AUTH_TOKEN_INJECTION } from '@/modules/auth/infra/tokens/auth-token-injection';
 import { CypherCompare } from '@/modules/auth/infra/hash-provider/compare-cypher';
-import { JwtAuthGuard } from '../../infra/auth-guard/jwt-auth-guard';
 import {
   CheckUserCredentialsService,
   JwtStrategy,
@@ -11,7 +10,6 @@ import {
 
 export const composeProvidersFactory = (): Provider[] => [
   JwtStrategy,
-  JwtAuthGuard,
   {
     provide: AUTH_TOKEN_INJECTION.COMPARE_HASH,
     useClass: CypherCompare,
