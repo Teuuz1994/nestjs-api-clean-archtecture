@@ -1,11 +1,4 @@
-import {
-  Controller,
-  HttpStatus,
-  Post,
-  Body,
-  Inject,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Controller, Post, Body, Inject } from '@nestjs/common';
 
 import { DbCreateUser } from '../../domain';
 import { CreateUserDto } from '../../dto/create-user.dto';
@@ -20,14 +13,7 @@ export class CreateUserController {
 
   @Post()
   async handle(@Body() user: CreateUserDto) {
-    try {
-      const users = await this.createUserUseCase.execute(user);
-      return users;
-    } catch {
-      throw new InternalServerErrorException({
-        message: 'Internal Server error',
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
-      });
-    }
+    const users = await this.createUserUseCase.execute(user);
+    return users;
   }
 }

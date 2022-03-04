@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Get,
-  HttpStatus,
-  Inject,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Controller, Get, Inject } from '@nestjs/common';
 
 import { DbListAllUsers } from '../../domain';
 import { TOKEN_INJECTION } from '../../infra/tokens/token-injection';
@@ -18,14 +12,7 @@ export class ListUsersController {
 
   @Get()
   async handle() {
-    try {
-      const users = await this.listUsersUseCase.execute();
-      return users;
-    } catch {
-      throw new InternalServerErrorException({
-        message: 'Internal Server error',
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
-      });
-    }
+    const users = await this.listUsersUseCase.execute();
+    return users;
   }
 }

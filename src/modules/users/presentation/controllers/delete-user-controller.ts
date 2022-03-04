@@ -1,11 +1,4 @@
-import {
-  Controller,
-  HttpStatus,
-  Delete,
-  Param,
-  Inject,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Controller, Delete, Param, Inject } from '@nestjs/common';
 
 import { DbDeleteUser } from '../../domain';
 import { TOKEN_INJECTION } from '../../infra/tokens/token-injection';
@@ -19,17 +12,10 @@ export class DeleteUserController {
 
   @Delete(':id')
   async handle(@Param('id') id: string) {
-    try {
-      await this.deleteUserUseCase.execute(id);
-      return {
-        message: 'User deleted successfully',
-        code: 200,
-      };
-    } catch {
-      throw new InternalServerErrorException({
-        message: 'Internal Server error',
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
-      });
-    }
+    await this.deleteUserUseCase.execute(id);
+    return {
+      message: 'User deleted successfully',
+      code: 200,
+    };
   }
 }

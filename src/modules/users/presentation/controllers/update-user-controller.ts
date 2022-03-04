@@ -1,12 +1,4 @@
-import {
-  Controller,
-  HttpStatus,
-  Put,
-  Body,
-  Param,
-  Inject,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Controller, Put, Body, Param, Inject } from '@nestjs/common';
 
 import { DbUpdateUser } from '../../domain';
 import { UpdateUserDto } from '../../dto/update-user.dto';
@@ -21,14 +13,7 @@ export class UpdateUserController {
 
   @Put(':id')
   async handle(@Param('id') id: string, @Body() user: UpdateUserDto) {
-    try {
-      const updatedUser = await this.updateUserUseCase.execute(id, user);
-      return updatedUser;
-    } catch {
-      throw new InternalServerErrorException({
-        message: 'Internal Server error',
-        code: HttpStatus.INTERNAL_SERVER_ERROR,
-      });
-    }
+    const updatedUser = await this.updateUserUseCase.execute(id, user);
+    return updatedUser;
   }
 }
