@@ -19,7 +19,7 @@
     "test:watch": "jest --no-cache --passWithNoTests --watch",
     "test:cov": "jest --no-cache --passWithNoTests --runInBand --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --no-cache --passWithNoTests --runInBand",
-    "test:e2e": "jest --no-cache --passWithNoTests --config ./test/jest-e2e.json"
+    "test:e2e": "jest --no-cache --passWithNoTests --detectOpenHandles --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
