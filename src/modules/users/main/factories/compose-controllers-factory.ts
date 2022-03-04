@@ -3,6 +3,7 @@ import {
   DeleteUserController,
   ListUsersController,
   UpdateUserController,
+  ListUsersAuthenticatedController,
 } from '../../presentation/controllers';
 
 export const composeControllersFactory = () => {
@@ -11,5 +12,6 @@ export const composeControllersFactory = () => {
     CreateUserController,
     UpdateUserController,
     DeleteUserController,
+    ListUsersAuthenticatedController,
   ];
 };
